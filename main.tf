@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 2.7.0"
+    }
+  }
+}
+
 resource "aws_instance" "webserver"{
   instance_type = "t2.micro"
   ami = "ami-05fa05752fc432eeb"
