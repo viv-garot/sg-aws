@@ -7,9 +7,19 @@ terraform {
   }
 }
 
+data "aws_ami" "ubuntu" {
+  
+  filter {
+    name   = "name"
+    values = ["bionic64-1.0.1"]
+  }
+
+  owners = ["267023797923"] 
+}
+
 resource "aws_instance" "webserver"{
   instance_type = "t2.micro"
-  ami = "ami-05fa05752fc432eeb"
+  ami = data.aws_ami.ubuntu.id
   vpc_security_group_ids = [ aws_security_group.instance.id ]
 
   user_data = <<-EOF
