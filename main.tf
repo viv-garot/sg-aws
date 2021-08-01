@@ -7,28 +7,6 @@ terraform {
   }
 }
 
-data "aws_ami" "ubuntu" {
-  
-  filter {
-    name   = "name"
-    values = ["bionic64-1.0.1"]
-  }
-
-  owners = ["267023797923"] 
-}
-
-resource "aws_instance" "webserver"{
-  instance_type = "t2.micro"
-  ami = data.aws_ami.ubuntu.id
-  vpc_security_group_ids = [ aws_security_group.instance.id ]
-
-  user_data = <<-EOF
-            #!/bin/bash
-            echo "Alvaro el magnifico" > index.html
-            nohup busybox httpd -f -p ${var.server_port} &
-            EOF
-}
-
 resource "aws_security_group" "instance" {
     
     ingress {
@@ -40,17 +18,7 @@ resource "aws_security_group" "instance" {
 }
 
 variable "server_port" {
-    description = "Default WebServer port number"
+    description = "Default port number"
     type = number
     default = 8080
-}
-
-output "public_ip" {
-    description = "WebServer public IP provided by AWS on default VPC and default subnet"
-    value = aws_instance.webserver.public_ip
-}
-
-output "public_dns" {
-    value = aws_instance.webserver.public_dns
-    description = "WebServer public DNS"
 }
