@@ -1,2 +1,2 @@
 # webserver-aws
-Simple nginx server in aws
+Simple nginx server module for aws
