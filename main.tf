@@ -20,8 +20,7 @@ resource "aws_instance" "webserver"{
 }
 
 resource "aws_security_group" "instance" {
-    name = "vivien-SingleWS-aws1"
-
+    
     ingress {
       cidr_blocks = [ "0.0.0.0/0" ]
       protocol = "tcp"
