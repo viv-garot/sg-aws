@@ -22,3 +22,7 @@ variable "server_port" {
     type = number
     default = 8080
 }
+
+output "sg_id" {
+  value = aws_security_group.instance.id
+}
